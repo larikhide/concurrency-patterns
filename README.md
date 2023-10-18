@@ -22,6 +22,12 @@ When you need to read messages and process them in separate goroutines without b
 
 # Fan in a.k.a multiplexor  
 
-"The Fan In pattern combines multiple inputs into a single output channel, i.e., it multiplexes. The order of output is not guaranteed!"
+The Fan In pattern combines multiple inputs into a single output channel, i.e., it multiplexes. The order of output is not guaranteed!
+
+Using the pattern when:
+
+We want to limit concurrently executed requests to an external service, like a read limiter, where only one request is being processed at any given time.
+
+Example: sending an email. Multiple goroutines generate various parts of the email, and one goroutine sends all this data to an external service in a single stream. The order of sending is not guaranteed.
 
 [!Alt text](src/fanin.png)
