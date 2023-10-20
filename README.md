@@ -30,5 +30,14 @@ We want to limit concurrently executed requests to an external service, like a r
 
 Example: sending an email. Multiple goroutines generate various parts of the email, and one goroutine sends all this data to an external service in a single stream. The order of sending is not guaranteed.
 
-[!Alt text](src/fanin.png)  
+![Alt text](src/fanin.png)  
 ![Alt text](src/fanin-extended.png)
+
+
+# Fan out 
+
+A useful pattern for distributing processing among multiple homogeneous goroutines. Not to be confused with publish-subscribe, as a message delivered to one subscriber cannot be delivered to another subscriber.  
+
+Example: distributing processing among different I/O-bound goroutines, such as making network requests or load balancing between channels, as the scheduler will distribute work among different fanOut goroutines.
+  
+![Alt text](src/fanout.png)
