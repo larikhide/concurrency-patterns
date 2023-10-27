@@ -40,4 +40,16 @@ A useful pattern for distributing processing among multiple homogeneous goroutin
 
 Example: distributing processing among different I/O-bound goroutines, such as making network requests or load balancing between channels, as the scheduler will distribute work among different fanOut goroutines.
   
-![Alt text](src/fanout.png)
+![Alt text](src/fanout.png)  
+
+# Pipeline
+
+Pipeline represents a sequence of stages connected by channels, where each stage is a group of goroutines performing the same function. At each stage, goroutines receive values from the previous stage through input channels, process them, and send new values to the next stage through output channels. Each stage can have an arbitrary number of input and output channels, except for the first stage which only has a single input channel, and the last stage which only has a single output channel. The first stage serves as a producer, the last stage serves as a consumer, and the stages in between act as middleware.  
+
+Example: We need to enrich and transform data using various external services. The sequence of actions is strictly sequential for each incoming message.
+
+We receive the product ID as input -> use the price calculation service in rubles -> use the currency conversion service -> add discounts from the discount service.
+
+It is assumed that this procedure will be triggered when adding a product or changing the price.  
+
+![Alt text](src/pipeline.png)  
