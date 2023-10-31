@@ -58,4 +58,8 @@ It is assumed that this procedure will be triggered when adding a product or cha
 
 ## mutex
   
-Use the standard mutex if you need to lock access to shared resources and do not require acquiring or passing additional data for processing. This is definitely faster than implementing it with channels, as channels inherently involve mutexes. Here's a simple example for practice.
+Use the standard mutex if you need to lock access to shared resources and do not require acquiring or passing additional data for processing. This is definitely faster than implementing it with channels, as channels inherently involve mutexes. Here's a simple example for practice.  
+
+## semaphore  
+
+Semaphore a.k.a. limited parallelism. Allows restricting the number of concurrently executing unblocked goroutines. Another example of a pattern that can be used to implement a Read Limiter. Essentially, it resembles a mutex, but with a buffered channel.
