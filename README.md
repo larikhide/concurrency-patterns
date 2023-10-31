@@ -3,7 +3,7 @@
 
 Here's an attempt to reproduce the generating patterns described in the AvitoTech YouTube [video](https://www.youtube.com/watch?v=GZSfn-8m-ko&ab_channel=AvitoTech)
 
-
+# Generative
 ![Alt text](src/image.png)  
 
 Generating patterns are patterns that guide the data through one or more execution steps with possible modification of the data  
@@ -12,7 +12,7 @@ Generating patterns are patterns that guide the data through one or more executi
 
 -- reading goroutines should never try to close the channel  
 
-# Generator
+## Generator
 
 The generator pattern is used to create an ordered sequence of values, potentially infinite.  
 
@@ -20,7 +20,7 @@ When you need to read messages and process them in separate goroutines without b
 
 ![Alt text](src/generator.png)
 
-# Fan in a.k.a multiplexor  
+## Fan in a.k.a multiplexor  
 
 The Fan In pattern combines multiple inputs into a single output channel, i.e., it multiplexes. The order of output is not guaranteed!
 
@@ -34,7 +34,7 @@ Example: sending an email. Multiple goroutines generate various parts of the ema
 ![Alt text](src/fanin-extended.png)
 
 
-# Fan out 
+## Fan out 
 
 A useful pattern for distributing processing among multiple homogeneous goroutines. Not to be confused with publish-subscribe, as a message delivered to one subscriber cannot be delivered to another subscriber.  
 
@@ -42,7 +42,7 @@ Example: distributing processing among different I/O-bound goroutines, such as m
   
 ![Alt text](src/fanout.png)  
 
-# Pipeline
+## Pipeline
 
 Pipeline represents a sequence of stages connected by channels, where each stage is a group of goroutines performing the same function. At each stage, goroutines receive values from the previous stage through input channels, process them, and send new values to the next stage through output channels. Each stage can have an arbitrary number of input and output channels, except for the first stage which only has a single input channel, and the last stage which only has a single output channel. The first stage serves as a producer, the last stage serves as a consumer, and the stages in between act as middleware.  
 
@@ -53,3 +53,9 @@ We receive the product ID as input -> use the price calculation service in ruble
 It is assumed that this procedure will be triggered when adding a product or changing the price.  
 
 ![Alt text](src/pipeline.png)  
+
+# Sync
+
+## mutex
+  
+Use the standard mutex if you need to lock access to shared resources and do not require acquiring or passing additional data for processing. This is definitely faster than implementing it with channels, as channels inherently involve mutexes. Here's a simple example for practice.
