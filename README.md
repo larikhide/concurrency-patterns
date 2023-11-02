@@ -71,4 +71,10 @@ A worker pool allows us to distribute work among multiple worker goroutines simu
 
 The execution order is not guaranteed.  
 
-It can be applied anywhere: any tasks that can be executed independently. For example, a monitoring service that needs to poll targets to check if they are currently accessible, and there are no dependencies between the targets.  
+It can be applied anywhere: any tasks that can be executed independently. For example, a monitoring service that needs to poll targets to check if they are currently accessible, and there are no dependencies between the targets.    
+
+## queue  
+
+The queue allows processing up to N messages concurrently without waiting for their completion.
+
+It is used wherever we can create deferred tasks that do not need to be awaited immediately. For example, sending emails or metrics.
